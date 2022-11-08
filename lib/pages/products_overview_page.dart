@@ -1,30 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/product_item.dart';
-import 'package:shop_app/data/dummy_data.dart';
-import 'package:shop_app/models/product.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/utils/app_routes.dart';
 
-class ProdcutsOverviewPage extends StatelessWidget {
-  final List<Product> loadedProducts = dummyProducts;
+import '../components/badge.dart';
+import '../components/product_grid.dart';
+import '../models/cart.dart';
+
+enum FilterOptions {
+  Favorite,
+  All,
+}
+
+class ProdcutsOverviewPage extends StatefulWidget {
   ProdcutsOverviewPage({Key? key}) : super(key: key);
+
+  @override
+  State<ProdcutsOverviewPage> createState() => _ProdcutsOverviewPageState();
+}
+
+class _ProdcutsOverviewPageState extends State<ProdcutsOverviewPage> {
+  bool _showFavoriteOnly = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Minha Loja"),
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: FilterOptions.Favorite,
+                child: Text("Somente favoritos"),
+              ),
+              const PopupMenuItem(
+                value: FilterOptions.All,
+                child: Text("Todos"),
+              ),
+            ],
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorite) {
+                  _showFavoriteOnly = true;
+                } else {
+                  _showFavoriteOnly = false;
+                }
+                print(_showFavoriteOnly);
+              });
+            },
+          ),
+          Consumer<Cart>(
+            builder: (ctx, cart, child) => Badge(
+              value: cart.itemsCount.toString(),
+              child: child!,
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.cart);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
+          ),
+        ],
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: loadedProducts.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          mainAxisExtent: 200,
-        ),
-        itemBuilder: (ctx, i) => ProductItem(product: loadedProducts[i]),
-      ),
+      body: ProductGrid(_showFavoriteOnly),
     );
   }
 }
