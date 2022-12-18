@@ -5,8 +5,8 @@ import 'package:shop_app/utils/app_routes.dart';
 
 import '../models/cart.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({
+class ProductGridItem extends StatelessWidget {
+  const ProductGridItem({
     Key? key,
   }) : super(key: key);
 
@@ -29,27 +29,30 @@ class ProductItem extends StatelessWidget {
               ),
               color: Theme.of(context).colorScheme.copyWith().secondary,
             ),
-            child: Column(
-              children: [
-                Text("Algo q nunca muda #01"),
-                Text("Algo q nunca muda #02"),
-                Text("Algo q nunca muda #03"),
-              ],
-            ),
           ),
           title: Text(
             product.name,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            onPressed: () {
-              cart.addItem(product);
-              
-            },
-            icon: const Icon(
-              Icons.shopping_cart,
-            ),
+            icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).colorScheme.copyWith().secondary,
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text("Produto adicionado com sucesso"),
+                  duration: const Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: "Desfazer",
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
+              );
+              cart.addItem(product);
+            },
           ),
         ),
         child: GestureDetector(
