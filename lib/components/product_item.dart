@@ -12,12 +12,13 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final msg = ScaffoldMessenger.of(context);
     return ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(product.imageUrl),
       ),
       title: Text(product.name),
-      trailing: Container(
+      trailing: SizedBox(
         width: 100,
         child: Row(
           children: [
@@ -48,17 +49,19 @@ class ProductItem extends StatelessWidget {
                             Navigator.of(ctx).pop(false);
                           },
                         ),
-                        TextButton(
-                          child: const Text("Sim"),
-                          onPressed: () {
-                            Provider.of<ProductList>(context, listen: false).removeProduct(product);
-                            Navigator.of(ctx).pop(true);
-                          },
-                        ),
+                        TextButton(child: const Text("Sim"), onPressed: () => Navigator.of(ctx).pop(true)),
                       ],
                     );
                   },
-                );
+                ).then((value) async {
+                  if (value ?? false) {
+                    try {
+                      await Provider.of<ProductList>(context, listen: false).removeProduct(product);
+                    } catch (error) {
+                      msg.showSnackBar(SnackBar(content: Text(error.toString())));
+                    }
+                  }
+                });
               },
             ),
           ],

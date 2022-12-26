@@ -11,7 +11,7 @@ class CounterPage extends StatefulWidget {
 class _CounterPageState extends State<CounterPage> {
   @override
   Widget build(BuildContext context) {
-  final provider = CounterProvider.of(context);
+    final provider = CounterProvider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Exemplo Contador"),
