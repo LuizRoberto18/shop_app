@@ -9,7 +9,7 @@ class Product with ChangeNotifier {
   final String id;
   final String name;
   final String description;
-  final double price;
+  final num price;
   final String imageUrl;
   bool isFavorite;
 
@@ -22,24 +22,24 @@ class Product with ChangeNotifier {
     this.isFavorite = false,
   });
 
-  Future<void> _toggleFavorite() async {
+  _toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();
   }
 
-  Future<void> toggleFavorite() async {
+  Future<void> toggleFavorite(String token) async {
     try {
       _toggleFavorite();
 
       final response = await http.patch(
-        Uri.parse("${Constants.productBaseUrl}/$id.json"),
+        Uri.parse("${Constants.productBaseUrl}/$id.json?auth=$token"),
         body: jsonEncode(
           {
             "isFavorite": isFavorite,
           },
         ),
       );
-      if (response.statusCode >= 40) {
+      if (response.statusCode >= 400) {
         _toggleFavorite();
       }
     } catch (_) {

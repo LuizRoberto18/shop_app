@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/exceptions/auth_exception.dart';
+
+import '../models/auth.dart';
 
 enum AuthMode { signup, login }
 
@@ -33,7 +37,28 @@ class _AuthFormState extends State<AuthForm> {
     });
   }
 
-  void _submit() {
+  void _showErrorDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            "Ocorreu um Erro",
+            style: TextStyle(color: Colors.black),
+          ),
+          content: Text(msg),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Fechar"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _submit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) {
       return;
@@ -41,10 +66,25 @@ class _AuthFormState extends State<AuthForm> {
     setState(() => _isLoading = true);
 
     _formKey.currentState?.save();
-    if (_isLogin()) {
-      //login
-    } else {
-      //registrar
+    Auth auth = Provider.of(context, listen: false);
+    try {
+      if (_isLogin()) {
+        //login
+        await auth.login(
+          _authData['email']!,
+          _authData['password']!,
+        );
+      } else {
+        //registrar]
+        await auth.signup(
+          _authData['email']!,
+          _authData['password']!,
+        );
+      }
+    } on AuthException catch (error) {
+      _showErrorDialog(error.toString());
+    } catch (error) {
+      _showErrorDialog("Ocorreu um erro desconhecido!");
     }
     setState(() => _isLoading = false);
   }
@@ -73,11 +113,12 @@ class _AuthFormState extends State<AuthForm> {
                 onSaved: (email) => _authData["email"] = email ?? "",
                 validator: (_email) {
                   final email = _email ?? "";
-                  if (email.trim().isEmpty || email.contains("@")) {
+                  if (email.trim().isEmpty || !email.contains("@")) {
                     return "Informe um email valido";
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.next,
               ),
               TextFormField(
                 controller: _passwordController,
@@ -94,6 +135,7 @@ class _AuthFormState extends State<AuthForm> {
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.done,
               ),
               if (_isSignup())
                 TextFormField(
@@ -111,6 +153,7 @@ class _AuthFormState extends State<AuthForm> {
                           }
                           return null;
                         },
+                  textInputAction: TextInputAction.done,
                 ),
               const SizedBox(height: 20),
               if (_isLoading)

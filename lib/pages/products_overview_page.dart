@@ -13,14 +13,14 @@ enum FilterOptions {
   all,
 }
 
-class ProdcutsOverviewPage extends StatefulWidget {
-  const ProdcutsOverviewPage({Key? key}) : super(key: key);
+class ProductsOverviewPage extends StatefulWidget {
+  const ProductsOverviewPage({Key? key}) : super(key: key);
 
   @override
-  State<ProdcutsOverviewPage> createState() => _ProdcutsOverviewPageState();
+  State<ProductsOverviewPage> createState() => _ProductsOverviewPageState();
 }
 
-class _ProdcutsOverviewPageState extends State<ProdcutsOverviewPage> {
+class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   bool _showFavoriteOnly = false;
   bool _isLoading = true;
 
