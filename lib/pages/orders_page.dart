@@ -21,7 +21,7 @@ class OrdersPage extends StatelessWidget {
       drawer: const AppDrawer(),
       body: FutureBuilder(
         future: Provider.of<OrderList>(context, listen: false).loadOrders(),
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -29,6 +29,15 @@ class OrdersPage extends StatelessWidget {
           } else if (snapshot.error != null) {
             return const Center(
               child: Text("Ocorreu um erro!"),
+            );
+            //TODO verificar se a lista está vazia
+          } else if (snapshot.hasData == null) {
+            return Center(
+              child: Text(
+                "Não existe pedidos no momento.",
+                style: Theme.of(context).textTheme.headline4,
+                textAlign: TextAlign.center,
+              ),
             );
           } else {
             return RefreshIndicator(
