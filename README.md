@@ -1,4 +1,4 @@
-<h1>shop_app</h1>
+![Design sem nome (1)](https://user-images.githubusercontent.com/52421538/209866895-05bc6a65-bc81-4dce-88d2-5e7281993c2c.png)
 
 > Status: Developing ⚠️
 
