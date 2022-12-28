@@ -8,6 +8,7 @@ import 'package:shop_app/pages/cart_page.dart';
 import 'package:shop_app/pages/product_detail_page.dart';
 import 'package:shop_app/pages/products_overview_page.dart';
 import 'package:shop_app/utils/app_routes.dart';
+import 'package:shop_app/utils/custom_route.dart';
 
 import 'models/auth.dart';
 import 'models/cart.dart';
@@ -64,7 +65,15 @@ class MyApp extends StatelessWidget {
             secondary: Colors.deepOrange,
           ),
           textTheme: tema.textTheme.copyWith(
-            headline6: const TextStyle(fontFamily: 'Lato'),
+            headline6: const TextStyle(
+              fontFamily: 'Lato',
+            ),
+          ),
+          pageTransitionsTheme:  PageTransitionsTheme(
+            builders: {
+              TargetPlatform.iOS: CustomPageTransitionsBuilder(),
+              TargetPlatform.android: CustomPageTransitionsBuilder(),
+            },
           ),
         ),
         routes: {
