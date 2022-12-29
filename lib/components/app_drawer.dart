@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/pages/orders_page.dart';
 import 'package:shop_app/utils/app_routes.dart';
-import 'package:shop_app/utils/custom_route.dart';
 
 import '../models/auth.dart';
 

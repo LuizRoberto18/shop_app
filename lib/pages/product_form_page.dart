@@ -77,7 +77,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
     setState(() => isLoading = true);
     try {
       await Provider.of<ProductList>(context, listen: false).saveProduct(_formData);
-      Navigator.of(context).pop();
+      Future.delayed(
+        Duration.zero,
+        () {
+          Navigator.of(context).pop();
+        },
+      );
     } catch (error) {
       await showDialog(
         context: context,
@@ -131,8 +136,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                         FocusScope.of(context).requestFocus(_priceFocus);
                       },
                       onSaved: (name) => _formData['name'] = name ?? "",
-                      validator: (_name) {
-                        final name = _name ?? "";
+                      validator: (newName) {
+                        final name = newName ?? "";
                         if (name.trim().isEmpty) {
                           return 'Nome é obrigatório';
                         }
@@ -156,8 +161,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                         FocusScope.of(context).requestFocus(_descriptionFocus);
                       },
                       onSaved: (price) => _formData['price'] = double.parse(price ?? "0"),
-                      validator: (_price) {
-                        final priceString = _price ?? '';
+                      validator: (newPrice) {
+                        final priceString = newPrice ?? '';
                         final price = double.tryParse(priceString) ?? -1;
                         if (price <= 0) {
                           return 'informe um preço válido';
@@ -174,8 +179,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       onSaved: (description) => _formData['description'] = description ?? "",
-                      validator: (_description) {
-                        final description = _description ?? "";
+                      validator: (newDescription) {
+                        final description = newDescription ?? "";
                         if (description.trim().isEmpty) {
                           return 'Descrição é obrigatório';
                         }
@@ -199,8 +204,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                             keyboardType: TextInputType.url,
                             textInputAction: TextInputAction.done,
                             onFieldSubmitted: (_) => _submitForm(),
-                            validator: (_imageUrl) {
-                              final imageUrl = _imageUrl ?? "";
+                            validator: (newImageUrl) {
+                              final imageUrl = newImageUrl ?? "";
                               if (!isvalidImageUrl(imageUrl)) {
                                 return 'Informe uma Url válida!';
                               }

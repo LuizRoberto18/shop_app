@@ -31,7 +31,7 @@ class OrdersPage extends StatelessWidget {
               child: Text("Ocorreu um erro!"),
             );
             //TODO verificar se a lista está vazia
-          } else if (snapshot.hasData == null) {
+          } else if (!snapshot.hasData) {
             return Center(
               child: Text(
                 "Não existe pedidos no momento.",

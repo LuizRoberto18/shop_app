@@ -59,7 +59,6 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
                 } else {
                   _showFavoriteOnly = false;
                 }
-                print(_showFavoriteOnly);
               });
             },
           ),
