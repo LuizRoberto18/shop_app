@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop_app/models/cart_item.dart';
+
 import '../utils/constants.dart';
 import 'cart.dart';
+import 'cart_item.dart';
 import 'order.dart';
 
 class OrderList with ChangeNotifier {

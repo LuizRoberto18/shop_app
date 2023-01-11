@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/exceptions/auth_exception.dart';
 
+import '../exceptions/auth_exception.dart';
 import '../models/auth.dart';
 
 enum AuthMode { signup, login }
@@ -110,7 +110,7 @@ class _AuthFormState extends State<AuthForm> with SingleTickerProviderStateMixin
           _authData['password']!,
         );
       } else {
-        //registrar]
+        //registrar
         await auth.signup(
           _authData['email']!,
           _authData['password']!,

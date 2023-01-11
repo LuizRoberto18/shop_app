@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/utils/app_routes.dart';
 
 import '../models/auth.dart';
+import '../utils/app_routes.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -13,6 +13,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
+            //TODO identificar o usuario logado
             title: const Text("Bem vindo Usuário!"),
             automaticallyImplyLeading: false,
           ),
@@ -29,7 +30,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.payment),
             title: const Text("Pedidos"),
             onTap: () {
-                 Navigator.of(context).pushReplacementNamed(AppRoutes.orders);
+              Navigator.of(context).pushReplacementNamed(AppRoutes.orders);
               // Navigator.of(context).pushReplacement(
               //   CustomRoute(
               //     builder: (ctx) => const OrdersPage(),

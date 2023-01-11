@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop_app/exceptions/auth_exception.dart';
 
 import '../data/store.dart';
+import '../exceptions/auth_exception.dart';
 
 class Auth extends ChangeNotifier {
   String? _token;

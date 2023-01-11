@@ -3,14 +3,15 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:shop_app/exceptions/http_exception.dart';
-import 'package:shop_app/models/product.dart';
 
+import '../exceptions/http_exception.dart';
 import '../utils/constants.dart';
+import 'product.dart';
 
 class ProductList with ChangeNotifier {
   final String _token;
   final String _userId;
+
   //TODO verificar lista
   final List<Product> _items;
 

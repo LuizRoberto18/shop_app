@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/order_list.dart';
 
+import '../components/cart_button.dart';
 import '../components/cart_item.dart';
 import '../models/cart.dart';
 
@@ -59,44 +59,5 @@ class CartPage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class CartButton extends StatefulWidget {
-  const CartButton({
-    Key? key,
-    required this.cart,
-  }) : super(key: key);
-
-  final Cart cart;
-
-  @override
-  State<CartButton> createState() => _CartButtonState();
-}
-
-class _CartButtonState extends State<CartButton> {
-  bool isLoading = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return isLoading
-        ? const CircularProgressIndicator()
-        : TextButton(
-            onPressed: widget.cart.itemsCount == 0
-                ? null
-                : () async {
-                    setState(() => isLoading = true);
-                    await Provider.of<OrderList>(context, listen: false).addOrder(widget.cart);
-                    setState(() => isLoading = false);
-                    widget.cart.clear();
-                  },
-            style: TextButton.styleFrom(
-                textStyle: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-            )),
-            child: Text(
-              "Comprar".toUpperCase(),
-            ),
-          );
   }
 }

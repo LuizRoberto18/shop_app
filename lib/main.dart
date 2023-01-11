@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/order_list.dart';
-import 'package:shop_app/models/product_list.dart';
-import 'package:shop_app/pages/auth_or_home_page.dart';
-import 'package:shop_app/pages/cart_page.dart';
-import 'package:shop_app/pages/product_detail_page.dart';
-import 'package:shop_app/utils/app_routes.dart';
-import 'package:shop_app/utils/custom_route.dart';
 
 import 'models/auth.dart';
 import 'models/cart.dart';
+import 'models/order_list.dart';
+import 'models/product_list.dart';
+import 'pages/auth_or_home_page.dart';
+import 'pages/cart_page.dart';
 import 'pages/orders_page.dart';
+import 'pages/product_detail_page.dart';
 import 'pages/product_form_page.dart';
 import 'pages/products_page.dart';
+import 'utils/app_routes.dart';
+import 'utils/custom_route.dart';
 
 void main() {
   runApp(MyApp());

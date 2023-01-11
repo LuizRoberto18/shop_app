@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/cart.dart';
 
+import '../models/cart.dart';
 import '../models/cart_item.dart';
 
 class CartItemWidget extends StatelessWidget {
   final CartItem cartItem;
 
-  const CartItemWidget({Key? key, required this.cartItem}) : super(key: key);
+  const CartItemWidget({
+    Key? key,
+    required this.cartItem,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class CartItemWidget extends StatelessWidget {
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              title:const Text("Tem certeza?"),
+              title: const Text("Tem certeza?"),
               content: const Text("Quer remover o item do carrinho?"),
               actions: [
                 TextButton(
@@ -41,7 +44,8 @@ class CartItemWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(ctx).pop(false);
                   },
-                ),TextButton(
+                ),
+                TextButton(
                   child: const Text("Sim"),
                   onPressed: () {
                     Navigator.of(ctx).pop(true);

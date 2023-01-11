@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/models/product.dart';
-import 'package:shop_app/models/product_list.dart';
+
+import '../models/product.dart';
+import '../models/product_list.dart';
 
 class ProductFormPage extends StatefulWidget {
   const ProductFormPage({Key? key}) : super(key: key);
@@ -59,12 +60,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
     setState(() {});
   }
 
-  bool isvalidImageUrl(String url) {
+  bool isValidImageUrl(String url) {
     bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
-    bool endisWithFile =
+    bool endIsWithFile =
         url.toLowerCase().endsWith('.png') || url.toLowerCase().endsWith('.jpg') || url.toLowerCase().endsWith('.jpeg');
 
-    return isValidUrl && endisWithFile;
+    return isValidUrl && endIsWithFile;
   }
 
   void _submitForm() async {
@@ -206,7 +207,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                             onFieldSubmitted: (_) => _submitForm(),
                             validator: (newImageUrl) {
                               final imageUrl = newImageUrl ?? "";
-                              if (!isvalidImageUrl(imageUrl)) {
+                              if (!isValidImageUrl(imageUrl)) {
                                 return 'Informe uma Url válida!';
                               }
                               return null;
